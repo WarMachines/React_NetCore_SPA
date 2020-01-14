@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Trips.Data;
 
 namespace TRIPS
@@ -23,6 +24,12 @@ namespace TRIPS
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.Configure<TripsDatabaseSettings>(
+                Configuration.GetSection(nameof(TripsDatabaseSettings))
+            );
+
+            services.AddSingleton<ITripsDatabaseSettings>(sp => sp.GetRequiredService<IOptions<TripsDatabaseSettings>>().Value);
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -30,6 +37,7 @@ namespace TRIPS
             });
 
             services.AddTransient<ITripService,TripService>();
+            services.AddTransient<ITripRepository, TripRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
