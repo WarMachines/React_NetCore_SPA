@@ -2,10 +2,11 @@
 
 Single Page application build using "dotnet new React"
 
--React
--Redux
--Auth0 (React APP)
--.NetCore API
+Components Used
+- React
+- Redux
+- Auth0 (React APP)
+- .NetCore API
 
 how to run
 
