@@ -7,6 +7,12 @@ Components Used
 - Redux
 - Auth0 (React APP)
 - .NetCore API
+- MongoDB
+
+update 1:
+
+- MongoDB Atlas integrated to store trip information instead of local static data file
+- Created repository layer to handle Repository related responsibilities.
 
 how to run
 
