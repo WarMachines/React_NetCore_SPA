@@ -7,7 +7,6 @@ Single Page application build using "dotnet new React"
 -Auth0 (React APP)
 -.NetCore API
 
-
 how to run
 
 - Open terminal
