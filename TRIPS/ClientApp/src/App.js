@@ -9,21 +9,27 @@ import { Create } from './components/Trip/Create';
 import './custom.css'
 import { Update } from './components/Trip/Update';
 import { Delete } from './components/Trip/Delete';
+import SecureRoute from './secureRoute/SecuredRoute';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
 export default class App extends Component {
   static displayName = App.name;
 
   render () {
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-        <Route path='/trips' component = {Trips}></Route>
-        <Route path='/create' component = {Create}></Route>
-        <Route path='/update/:id' component = {Update}></Route>
-        <Route path='/delete/:id' component = {Delete}></Route>
-      </Layout>
+      <BrowserRouter>
+        <Switch>
+          <Layout>
+            <Route exact path='/' component={Home} />
+            <SecureRoute path='/counter' component={Counter} />
+            <SecureRoute path='/fetch-data' component={FetchData} />
+            <SecureRoute path='/trips' component = {Trips} />
+            <SecureRoute path='/create' component = {Create} />
+            <SecureRoute path='/update/:id' component = {Update} />
+            <SecureRoute path='/delete/:id' component = {Delete} />
+          </Layout>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
