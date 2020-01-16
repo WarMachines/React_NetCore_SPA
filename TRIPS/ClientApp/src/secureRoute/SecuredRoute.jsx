@@ -16,7 +16,7 @@ function SecuredRoute(props) {
 
     return(
         <Route {...rest} render={(props) => (
-            isAuthenticated
+            true
               ? <Component {...props} />
               : <Redirect to='/' />
           )} />

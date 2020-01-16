@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 import configureStore from './store/store';
 import {Auth0Provider} from './auth0-wrapper';
 import config from './auth_config.json';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');

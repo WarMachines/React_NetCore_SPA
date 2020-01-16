@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 // import axios from 'axios';
 import {connect} from 'react-redux';
 import {getAllTrips} from '../../actions/tripActions'
-import { Card, Button, ButtonGroup } from 'react-bootstrap'
-import Default_Vienna from '../../Static_Content/Default_Vienna.jpg'
 
 
 export class Trips extends Component {
@@ -56,37 +54,54 @@ export class Trips extends Component {
 
     renderAllTripsTable(trips){
         return (
-            <div className="row">
-            {
-                trips.map(trip => (
-                    <div className="col-sm-4 mb-4">
-                        <Card key ={trip.id} style={{ width: '23rem' }}>
-                            <Card.Img variant="top" src={Default_Vienna} />
-                            <Card.Body>
-                                <Card.Title>
-                                    {trip.name}
-                                </Card.Title>
-                                <Card.Text>
-                                <p class="card-text small"><label className="mr-1">{new Date(trip.dateStarted).toISOString().slice(0,10)} </label> <label> to  {trip.dateCompleted ? new Date(trip.dateCompleted).toISOString().slice(0,10) : '..'}</label></p>
-                                    {trip.description.slice(0,80)}...
-                                </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                                <ButtonGroup aria-label="Basic example">
-                                    <button type="button" class="btn btn-success">Read More..</button>
-                                    <button onClick= {() => this.onTripUpdate(trip.id)} type="button" class="btn btn-success">Update</button>
-                                    <button onClick= {() => this.onTripDelete(trip.id)} type="button" class="btn btn-danger">Delete</button>
-                                </ButtonGroup>
-                            </Card.Footer>
-                        </Card>
-                    </div>
-                ))
-            }
-            </div>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date started</th>
+                        <th>Date completed</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        trips.map(trip => (
+                            <tr key={trip.id}>
+                                <td>{trip.name}</td>
+                                <td>{trip.description}</td>
+                                <td>{new Date(trip.dateStarted).toISOString().slice(0,10)}</td>
+                                <td>{trip.dateCompleted ? new Date(trip.dateCompleted).toISOString().slice(0,10) : '-'}</td>
+                                <td>
+                                    <div className="form-group">
+                                        <button onClick= {() => this.onTripUpdate(trip.id)} className="btn btn-success">Update</button>
+                                        <button onClick= {() => this.onTripDelete(trip.id)} className="btn btn-danger">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    }
+
+                </tbody>
+            </table>
         );
     }
 
     render() {
+        // let content = this.state.loading ? (
+        //     <p>
+        //         <em>
+        //             Loading.....
+        //         </em>
+        //     </p>
+        // ) : ( this.state.failed ? (
+        //         <div className="text-danger">
+        //             <em>{this.state.error}</em>
+        //         </div>
+        //     ) : 
+        //         (this.renderAllTripsTable(this.state.trips))
+        //     )
+
         let content = this.props.trips.loading ? (
             <p>
                  <em>
@@ -113,5 +128,5 @@ const mapStateToProps = ({trips}) => ({
     trips
 });
 
-export default connect(mapStateToProps, {getAllTrips})(Trips);
+// export default connect(mapStateToProps, {getAllTrips})(Trips);
 
