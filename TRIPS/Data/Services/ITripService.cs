@@ -7,5 +7,7 @@ namespace Trips.Data {
         void UpdateTrip(int tripId, Trip trip);
         void DeleteTrip(int tripId);
         void AddTrip(Trip trip);
+        List<string> GetImageUrlsById(int id);
+        void AddTripImageUrl(int tripId, string tripImageUrl);
     }
 }

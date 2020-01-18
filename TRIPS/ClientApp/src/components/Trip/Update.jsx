@@ -1,5 +1,8 @@
 import React, { Component} from 'react';
 import axios from 'axios';
+import { ImageUpload } from './ImageUpload';
+import { storage } from '../../firebase';
+import { Progress } from 'reactstrap';
 
 export class Update extends Component{
     constructor(props) {
@@ -11,12 +14,14 @@ export class Update extends Component{
         this.onChangeDateCompleted = this.onChangeDateCompleted.bind(this);
         this.updateTripInformation = this.updateTripInformation.bind(this);
         this.cancelUpdate = this.cancelUpdate.bind(this);
+        this.fileUploadHandler = this.fileUploadHandler.bind(this);
 
         this.state = {
             name: '',
             description: '',
             dateStarted: null,
-            dateCompleted: null
+            dateCompleted: null,
+            imageFile: null
         }
     }
 
@@ -60,10 +65,44 @@ export class Update extends Component{
         this.setState({dateCompleted: e.target.value})
     }
 
+    fileUploadHandler = (event) => {
+        console.log(event.target.files);
+        this.setState({
+            imageFile: event.target.files[0]
+        })
+    }
+
     updateTripInformation(e) {
         e.preventDefault();
         const {history} = this.props;
         const {id} = this.props.match.params;
+        const downLoadUrl = null;
+        if(this.state.imageFile != null){
+            let image = this.state.imageFile;
+            const uploadTask = storage.ref(`images/${id}/${image.name}`).put(image);
+            uploadTask.on('state_changed',
+            (snapshot) => {
+
+            },
+            (error) => {
+                console.log(error);
+            },
+            () => {
+                storage.ref(`images/${id}`).child(image.name).getDownloadURL().then(url => {
+                    console.log(url);
+                    let obj = {
+                        ImageUrls: [url],
+                        Id: id
+                    }
+                    axios.put('api/Trips/AddImageUrl/'+id, obj)
+                    .then(result => {
+                        console.log("Url Successfully saved");
+                    });
+
+                });
+            });
+        }
+
         let trip = {
             Name: this.state.name,
             Description: this.state.description,
@@ -74,7 +113,7 @@ export class Update extends Component{
         axios.put('api/Trips/UpdateTrip/'+id, trip)
         .then(result => {
             history.push('/trips');
-        })
+        });
 
     }
 
@@ -102,6 +141,13 @@ export class Update extends Component{
                             <div className="form-group">
                                 <label>Date of completion:</label>
                                 <input type="date" className="form-control" value={this.state.dateCompleted} onChange = {this.onChangeDateCompleted}></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col col-md-12 col-sm-12 col-xs-12">
+                            <div className="form-group">
+                                <ImageUpload triggerFileUploadHandler = {this.fileUploadHandler}></ImageUpload>
                             </div>
                         </div>
                     </div>

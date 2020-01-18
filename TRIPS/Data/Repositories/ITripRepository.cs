@@ -9,5 +9,7 @@ namespace Trips.Data{
         void UpdateTrip(int tripId, Trip trip);
         void DeleteTrip(int tripId);
         void AddTrip(Trip trip);
+        void AddTripImageUrl(int tripId, string imageUrl);
+        List<string> GetAllTripImageUrls(int tripId);
     }
 }

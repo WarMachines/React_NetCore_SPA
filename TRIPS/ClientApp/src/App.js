@@ -11,6 +11,7 @@ import { Update } from './components/Trip/Update';
 import { Delete } from './components/Trip/Delete';
 import SecureRoute from './secureRoute/SecuredRoute';
 import { BrowserRouter, Switch } from 'react-router-dom';
+import { Trip } from './components/Trip/Trip';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -27,6 +28,7 @@ export default class App extends Component {
             <SecureRoute path='/create' component = {Create} />
             <SecureRoute path='/update/:id' component = {Update} />
             <SecureRoute path='/delete/:id' component = {Delete} />
+            <SecureRoute path='/trip/:id' component = {Trip} />
           </Layout>
         </Switch>
       </BrowserRouter>

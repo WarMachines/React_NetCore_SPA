@@ -12,6 +12,7 @@ export class Trips extends Component {
 
         this.onTripUpdate = this.onTripUpdate.bind(this);
         this.onTripDelete = this.onTripDelete.bind(this);
+        this.onTripReadMore = this.onTripReadMore.bind(this);
 
         this.state = {
             trips: [],
@@ -54,28 +55,33 @@ export class Trips extends Component {
         history.push('/delete/'+id)
     }
 
+    onTripReadMore(id){
+        const {history} = this.props;
+        history.push('/trip/'+id)
+    }
+
     renderAllTripsTable(trips){
         return (
             <div className="row">
             {
                 trips.map(trip => (
-                    <div className="col-sm-4 mb-4">
-                        <Card key ={trip.id} style={{ width: '23rem' }}>
+                    <div key ={trip.id} className="col-sm-4 mb-4">
+                        <Card style={{ width: '23rem' }}>
                             <Card.Img variant="top" src={Default_Vienna} />
                             <Card.Body>
                                 <Card.Title>
                                     {trip.name}
                                 </Card.Title>
+                                <p className="card-text small"><label className="mr-1">{new Date(trip.dateStarted).toISOString().slice(0,10)} </label> <label> to  {trip.dateCompleted ? new Date(trip.dateCompleted).toISOString().slice(0,10) : '..'}</label></p>
                                 <Card.Text>
-                                <p class="card-text small"><label className="mr-1">{new Date(trip.dateStarted).toISOString().slice(0,10)} </label> <label> to  {trip.dateCompleted ? new Date(trip.dateCompleted).toISOString().slice(0,10) : '..'}</label></p>
                                     {trip.description.slice(0,80)}...
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
                                 <ButtonGroup aria-label="Basic example">
-                                    <button type="button" class="btn btn-success">Read More..</button>
-                                    <button onClick= {() => this.onTripUpdate(trip.id)} type="button" class="btn btn-success">Update</button>
-                                    <button onClick= {() => this.onTripDelete(trip.id)} type="button" class="btn btn-danger">Delete</button>
+                                    <button onClick= {() => this.onTripReadMore(trip.id)} type="button" className="btn btn-success">Read More..</button>
+                                    <button onClick= {() => this.onTripUpdate(trip.id)} type="button" className="btn btn-success">Update</button>
+                                    <button onClick= {() => this.onTripDelete(trip.id)} type="button" className="btn btn-danger">Delete</button>
                                 </ButtonGroup>
                             </Card.Footer>
                         </Card>

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -35,7 +36,7 @@ namespace Trips.Data{
         public List<Trip> GetAllTrips() {
             return _repository.GetAllTrips();
         }
-        
+
         // public Trip GetTripById(int tripId) => Data.Trips.FirstOrDefault(t => t.Id == tripId);
         public Trip GetTripById(int tripId) {
             return _repository.GetTripById(tripId);
@@ -52,6 +53,16 @@ namespace Trips.Data{
             //     oldTrips.DateCompleted = trip.DateCompleted;
             // }
             _repository.UpdateTrip(tripId,trip);
+        }
+
+        public List<string> GetImageUrlsById(int id)
+        {
+            return _repository.GetAllTripImageUrls(id);
+        }
+
+        public void AddTripImageUrl(int tripId, string tripImageUrl)
+        {
+            _repository.AddTripImageUrl(tripId, tripImageUrl);
         }
     }
 }

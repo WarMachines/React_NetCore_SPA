@@ -6,6 +6,8 @@ namespace Trips.Data{
 
         public static List<Trip> Trips => allTrips;
 
+        public static List<TripImageUrls> TripImageUrls => allTripImageUrls;
+
         static List<Trip> allTrips = new List<Trip>() {
             new Trip()
             {
@@ -57,5 +59,18 @@ namespace Trips.Data{
             }
         };
 
+        static List<TripImageUrls> allTripImageUrls = new List<TripImageUrls>() {
+            new TripImageUrls()
+            {
+                Id=1,
+                ImageUrls = new List<string>() {
+                    "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+                    "https://images.unsplash.com/photo-1516550893923-42d28e5677af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80",
+                    "https://images.unsplash.com/photo-1526581671404-349f224db79b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+                    "https://images.unsplash.com/photo-1568829486701-056199d57b24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1439&q=80",
+                    "https://images.unsplash.com/photo-1566251929051-bbb3408021cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                }
+            }
+        };
     }
 }

@@ -49,6 +49,19 @@ namespace Trips.Controllers{
             _service.DeleteTrip(id);
             return Ok();
         }
+
+        [HttpGet("GetImageUrls/{id}")]
+        public IActionResult GetImageUrls(int id){
+
+            var tripUrls = _service.GetImageUrlsById(id);
+            return Ok(tripUrls);
+        }
+
+        [HttpPut("AddImageUrl/{id}")]
+        public IActionResult AddImageUrl(int id, [FromBody] TripImageUrls tripImageUrl){
+            _service.AddTripImageUrl(id, tripImageUrl.ImageUrls[0]);
+            return Ok();
+        }
     }
 
 }
