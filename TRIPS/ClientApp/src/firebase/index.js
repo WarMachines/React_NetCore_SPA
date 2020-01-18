@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 
 var firebaseConfig = {
-    //"Enter your filebase configuration here from the private key you have download from firebase"
+    //"Enter your filebase configuration here from the private key you have download from firebasennn"
   };
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
